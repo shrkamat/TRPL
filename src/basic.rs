@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod math {
+mod vars {
     #[test]
     // https://doc.rust-lang.org/book/ch03-01-variables-and-mutability.html
     fn mutation() {
@@ -139,7 +139,7 @@ mod control_flow {
     // skipping
 
     #[test]
-    fn demo() {
+    fn conditionals() {
         if true {
             assert!(true);
         } else {
@@ -148,9 +148,10 @@ mod control_flow {
     }
 
     #[test]
-    fn flow_loop() {
+    fn repetition() {
         let mut count = 0;
 
+        // 01. loop
         let result = loop {
             count += 1;
             if count == 10 {
@@ -158,5 +159,32 @@ mod control_flow {
             }
         };
         assert_eq!(result, 10);
+
+        // 02. while loop
+        while count > 0 {
+            count -= 1;
+        }
+        assert_eq!(count, 0);
+
+        // 03. for loop range based
+        for i in 1..10 {
+            count = i;
+            break;
+        }
+        assert_eq!(count, 1);
+
+        // 04. for loop on iterator (foreach)
+        let data = [10, 20, 30, 40, 50];
+        for elem in data.iter() {
+            count = *elem;
+        }
+        assert_eq!(count, 50);
+
+        count = 0;
+        for (key, _val) in data.iter().enumerate() {
+            assert_eq!(key, count);
+            // assert_eq!(_val, data[key as i32]);      // TODO: understand error
+            count += 1;
+        }
     }
 }
